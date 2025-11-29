@@ -18,11 +18,11 @@ import threading
 import logging
 from logging.handlers import RotatingFileHandler
 
-base_path: str
-args: argparse.Namespace
-dispatcher_type: type[MqttDispatcher]
-main_logger: logging.Logger
-killer: GracefulKiller
+base_path: str | None = None
+args: argparse.Namespace | None = None
+dispatcher_type: type[MqttDispatcher] | None = None
+main_logger: logging.Logger | None = None
+killer: GracefulKiller | None = None
 
 
 class GracefulKiller:
@@ -274,6 +274,7 @@ class MochadClient:
         self.house_codes = house_codes
         self.killer = killer
         self.legacy = legacy
+        self.reader = None
 
     def parse_mochad_line(self, line):
         """
